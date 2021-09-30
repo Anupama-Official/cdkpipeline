@@ -16,7 +16,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
        // How it will be built and synthesized
        synth: new ShellStep('Synth', {
          // Where the source can be found
-         input: CodePipelineSource.connection('Anupama-Official/cdkpipeline', 'main', {
+         input: CodePipelineSource.connection('Anupama-Official/cdkpipeline', 'master', {
          connectionArn: 'arn:aws:codestar-connections:us-east-1:968532631134:connection/9da762c0-a715-4406-86d7-05f934ace962',
          }),
          // Install dependencies, build and run cdk synth
