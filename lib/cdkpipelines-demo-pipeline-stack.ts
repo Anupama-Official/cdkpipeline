@@ -12,11 +12,15 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
     const pipeline = new CodePipeline(this, 'Pipeline', {
       // The pipeline name
       pipelineName: 'MyServicePipeline',
+     
+  // ...
+      crossAccountKeys: true,
+
 
        // How it will be built and synthesized
        synth: new ShellStep('Synth', {
          // Where the source can be found
-         input: CodePipelineSource.connection('Anupama-Official/cdkpipeline', 'main', {
+         input: CodePipelineSource.connection('Anupama-Official/cdkpipeline', 'master', {
          connectionArn: 'arn:aws:codestar-connections:us-east-1:968532631134:connection/9da762c0-a715-4406-86d7-05f934ace962',
          }),
          // Install dependencies, build and run cdk synth
@@ -33,5 +37,8 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
     pipeline.addStage(new CdkpipelinesDemoStage(this, 'PreProd', {
   env: { account: '968532631134', region: 'us-east-1' }
 }));
+pipeline.addStage(new CdkpipelinesDemoStage(this, 'Prod', {
+      env: { account: 'ACCOUNT2', region: 'us-west-2' }
+    }));
   }
 }
